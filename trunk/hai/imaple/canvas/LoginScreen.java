@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
  *
  * @author David
  */
-public class LoginScreen extends CCanvas {
+public class LoginScreen extends AbstractCanvas {
 	@Override
 	public void doLogics() {
 
