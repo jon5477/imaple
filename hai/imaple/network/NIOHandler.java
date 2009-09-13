@@ -8,6 +8,7 @@ package imaple.network;
 import imaple.ex.CoreyIsAFaggotException;
 import imaple.ex.ICantCompileException;
 import imaple.ex.YouAreTooFuckedException;
+import imaple.handlers.PingHandler;
 import imaple.network.input.ByteArrayByteStream;
 import imaple.network.input.GenericSeekableLittleEndianAccessor;
 import imaple.network.input.SeekableLittleEndianAccessor;
@@ -28,6 +29,10 @@ public class NIOHandler extends IoHandlerAdapter {
 	private static final HashMap<RecvOps, JPacketHandler> handlers =
 			new HashMap<RecvOps, JPacketHandler>();
 	private IoSession yourMomsSession = null; //Your mom doesnt have a session yet!!
+
+	public NIOHandler() {
+		handlers.put(RecvOps.PING, new PingHandler());
+	}
 
 	public IoSession connectTo(InetSocketAddress addr)
 			throws YouAreTooFuckedException {
@@ -97,10 +102,10 @@ public class NIOHandler extends IoHandlerAdapter {
 		yourMomsSession.write(packet);
 	}
 
-        public boolean isConnected() {
-            if (yourMomsSession == null) {
-                return false;
-            }
-            return true;
-        }
+	public boolean isConnected() {
+		if (yourMomsSession == null) {
+			return false;
+		}
+		return yourMomsSession.isConnected();
+	}
 }

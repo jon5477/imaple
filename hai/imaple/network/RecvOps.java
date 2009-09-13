@@ -17,7 +17,7 @@ public enum RecvOps {
     LOGIN_STATUS(0x00),
     SEND_LINK(0x01),
     SERVERSTATUS(0x03),
-    GENER_DONE(0x04),
+    GENDER_DONE(0x04),
     TOS(0x05),
     PIN_OPERATION(0x06),
     PIN_ASSIGNED(0x07);
