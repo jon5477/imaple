@@ -59,7 +59,11 @@ public class NIOHandler extends IoHandlerAdapter {
 		JPacketHandler handler = handlers.get(RecvOps.getFor(packetID));
 		if (handler != null) {
 			handler.handle(slea);
-		}
+		} else {
+                    System.out.println("There is no handler specified for the packet header: "+RecvOps.getFor(packetID));
+                }
+
+                System.out.println("Recieved Packet: "+data);
 	}
 
 	@Override
@@ -73,12 +77,13 @@ public class NIOHandler extends IoHandlerAdapter {
 
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		System.err.println("Session closed ;)");
+		System.err.println("Session closed.");
 	}
 
 	public void sendPacket(byte[] data)
 			throws CoreyIsAFaggotException, ICantCompileException {
 		sendPacket(Packet.wrap(data));
+                System.out.println("Sent Packet: "+data);
 	}
 
 	public void sendPacket(Packet packet)
@@ -91,4 +96,11 @@ public class NIOHandler extends IoHandlerAdapter {
 		}
 		yourMomsSession.write(packet);
 	}
+
+        public boolean isConnected() {
+            if (yourMomsSession == null) {
+                return false;
+            }
+            return true;
+        }
 }

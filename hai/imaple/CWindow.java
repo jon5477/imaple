@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  * @author David
  */
 public class CWindow extends JFrame {
-	private static final Image cursor = ImageFactory.loadImageCP("cimage/tehcurs0r.png");
+	private static final Image cursor = ImageFactory.loadImageCP("cimage/MapleCursor.png");
 	private JCanvas drawCanvas;
 	private BufferStrategy dblBuffer;
 	private boolean renderTheShitToTheFuckingScreen = false;
@@ -43,7 +43,7 @@ public class CWindow extends JFrame {
 	private int mouseX, mouseY;
 
 	public CWindow() {
-		super("iMaple fucking pwns you you dicksucker");
+		super("iMaple - The 2nd Generation of the MapleStory Custom Client");
 	}
 
 	public void initiallize(boolean fullscreen) {

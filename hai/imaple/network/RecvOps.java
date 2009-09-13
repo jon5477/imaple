@@ -10,24 +10,34 @@ package imaple.network;
  * @author David
  */
 public enum RecvOps {
-	DUNNO(0x01);
+    /* General */
+    PING(0x11),
 
-	int op;
+    /* Login */
+    LOGIN_STATUS(0x00),
+    SEND_LINK(0x01),
+    SERVERSTATUS(0x03),
+    GENER_DONE(0x04),
+    TOS(0x05),
+    PIN_OPERATION(0x06),
+    PIN_ASSIGNED(0x07);
 
-	private RecvOps(int op) {
-		this.op = op;
+    int op;
+
+    private RecvOps(int op) {
+	this.op = op;
+    }
+
+    public int getOp() {
+	return op;
+    }
+
+    public static RecvOps getFor(int bitch) {
+	for (RecvOps r : RecvOps.values()) {
+            if (r.getOp() == bitch) {
+		return r;
+            }
 	}
-
-	public int getOp() {
-		return op;
-	}
-
-	public static RecvOps getFor(int bitch) {
-		for (RecvOps r : RecvOps.values()) {
-			if (r.getOp() == bitch) {
-				return r;
-			}
-		}
-		return null;
-	}
+	return null;
+    }
 }
