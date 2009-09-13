@@ -162,6 +162,17 @@ public class Core {
         }, 15000);
     }
 
+	public static String hmm(String hmmm) {
+		StringBuilder hmmmm = new StringBuilder();
+		for (int i = 0; i < hmmm.length(); i++) {
+			char hmmmmmmmmmmmmm = hmmm.charAt(i);
+			if (hmmmmmmmmmmmmm >= '0' && hmmmmmmmmmmmmm <= '9') {
+				hmmmm.append(hmmmmmmmmmmmmm);
+			}
+		}
+		return hmmmm.toString();
+	}
+
 	static {
 		VERSION = Integer.parseInt(
 				String.valueOf(
@@ -209,6 +220,6 @@ public class Core {
 				String.valueOf(
 				Integer.parseInt(
 				String.valueOf(
-				Integer.parseInt("1")))))))))))))))))))))))))))))))))))))))))))))));
+				Integer.parseInt(hmm("omfgwearhlkadjsfladsgjasd1asdfasdgfasdhlfkjkaldsjfawieonmsdlkje'srg'egsDfgmlskfdnblakdgmads;lkgasdf;jsd"))))))))))))))))))))))))))))))))))))))))))))))));
 	}
 }
