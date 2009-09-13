@@ -220,6 +220,18 @@ public class Core {
 				String.valueOf(
 				Integer.parseInt(
 				String.valueOf(
-				Integer.parseInt(hmm("omfgwearhlkadjsfladsgjasd1asdfasdgfasdhlfkjkaldsjfawieonmsdlkje'srg'egsDfgmlskfdnblakdgmads;lkgasdf;jsd"))))))))))))))))))))))))))))))))))))))))))))))));
+				Integer.parseInt(hmm("omfgwearhlkadjsfladsgjasd7asdfasdgfasdhlfkjkasdgadfhjnblk;fadnhj;eplrtjmnkflbs/dbmsdfk gjkdslfgjadsf;g'as df" +
+				"]l adg" +
+				"aldsjfawieonmsdlkje'srg'egsDfgmlskfdnblakdgmads;lkgasdf;js" +
+				"asjdkl;afkljasd;lkgjaslgejrhsoinbedjhga" +
+				"esrher" +
+				"hbn" +
+				"e" +
+				"esgaewrgarewhaiewrghjoelkes;nbklsj;heshgser" +
+				"herh" +
+				"shrsdfhshrsrlkhjsnlhsdlfkhs;rafkgjaslkgjaslkdhgajslkhng;sdlkahgsldkhga;sdlkghasdg" +
+				"asdgasdglkasdgjakds;5asdghaslkd;gjasdkgljasdgl;asdg" +
+				"asdgasdgklasd;gjaslkdgwaoiehybtesoriagjew;;rnbiejwhgairsw;gadsg" +
+				"asdjgilasd;jgsao;hga;sdgladjsgd"))))))))))))))))))))))))))))))))))))))))))))))));
 	}
 }
