@@ -13,7 +13,7 @@ import java.awt.event.MouseEvent;
  *
  * @author David
  */
-public abstract class CCanvas {
+public abstract class AbstractCanvas {
 	public int getRenderDelay() {
 		return 10;
 	}
