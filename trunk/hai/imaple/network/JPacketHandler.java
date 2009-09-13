@@ -5,6 +5,7 @@
 
 package imaple.network;
 
+import imaple.Core;
 import imaple.network.input.SeekableLittleEndianAccessor;
 
 /**
@@ -12,5 +13,5 @@ import imaple.network.input.SeekableLittleEndianAccessor;
  * @author David
  */
 public interface JPacketHandler {
-	void handle(SeekableLittleEndianAccessor slea);
+    void handle(SeekableLittleEndianAccessor slea);
 }

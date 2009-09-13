@@ -66,5 +66,5 @@ public interface LittleEndianWriter {
      *
      * @param s The ASCII string to use maple-convention to write.
      */
-    void writeRenoriaAsciiString(String s);
+    void writeMapleAsciiString(String s);
 }

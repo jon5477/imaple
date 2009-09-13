@@ -16,8 +16,9 @@ import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 /**
  *
- * @author David
+ * @author David (Special Encryption and Decryption by Seth)
  */
+
 public class PacketCryptFactory implements ProtocolCodecFactory {
 	Encoder e = new Encoder();
 	Decoder d = new Decoder();
@@ -37,6 +38,7 @@ public class PacketCryptFactory implements ProtocolCodecFactory {
 			ByteBuffer buffer = ByteBuffer.allocate(bytes.length + 4, false);
 			buffer.putInt(bytes.length);
 			buffer.put(bytes);
+                        PacketEncryption.encryptData(bytes);
 			arg2.write(buffer);
 		}
 
@@ -52,6 +54,7 @@ public class PacketCryptFactory implements ProtocolCodecFactory {
 				int byteLen = arg1.getInt();
 				byte[] shit = new byte[byteLen];
 				arg1.get(shit);
+                                PacketEncryption.decryptData(shit);
 				arg2.write(shit);
 				return true;
 			} else {

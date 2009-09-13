@@ -117,7 +117,7 @@ public class GenericLittleEndianWriter implements LittleEndianWriter {
      * @param s The ASCII string to use maple-convention to write.
      */
     @Override
-    public void writeRenoriaAsciiString(String s) {
+    public void writeMapleAsciiString(String s) {
         writeShort((short) s.length());
         writeAsciiString(s);
     }
