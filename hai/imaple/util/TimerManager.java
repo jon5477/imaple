@@ -5,17 +5,11 @@
 
 package imaple.util;
 
-import java.lang.management.ManagementFactory;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
-import javax.management.MBeanServer;
-import javax.management.ObjectName;
-import org.communication.MessageCallback;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -26,11 +20,6 @@ public class TimerManager implements TimerManagerMBean {
 	private ScheduledThreadPoolExecutor ses;
 
 	private TimerManager() {
-		MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
-		try {
-			mBeanServer.registerMBean(this, new ObjectName("server.server:type=TimerManger"));
-		} catch (Exception e) {
-		}
 	}
 
 	public static TimerManager getInstance() {
@@ -73,29 +62,6 @@ public class TimerManager implements TimerManagerMBean {
 
 	public ScheduledFuture<?> scheduleAtTimestamp(Runnable r, long timestamp) {
 		return schedule(r, timestamp - System.currentTimeMillis());
-	}
-
-	public void dropDebugInfo(MessageCallback callback) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Terminated: ");
-		builder.append(ses.isTerminated());
-		builder.append(" Shutdown: ");
-		builder.append(ses.isShutdown());
-		callback.dropMessage(builder.toString());
-
-		builder = new StringBuilder();
-		builder.append("Completed Tasks: ");
-		builder.append(ses.getCompletedTaskCount());
-		builder.append(" Active Tasks: ");
-		builder.append(ses.getActiveCount());
-		builder.append(" Task Count: ");
-		builder.append(ses.getTaskCount());
-		callback.dropMessage(builder.toString());
-
-		builder = new StringBuilder();
-		builder.append("Queued Tasks: ");
-		builder.append(ses.getQueue().toArray().length);
-		callback.dropMessage(builder.toString());
 	}
 
 	@Override
