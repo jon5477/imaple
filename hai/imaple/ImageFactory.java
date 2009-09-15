@@ -42,19 +42,19 @@ public class ImageFactory {
 	public static final Image loadImage(ZipFile file, String fLoc) {
 		Image ret = loadedImages.get(fLoc);
 		if (ret == null) {
-			try {
-				synchronized (pussy) {
-					ret = ImageIO.read(file.getInputStream(file.getEntry(fLoc)));
-					fuck.addImage(ret, mtID);
-					try {
-						fuck.waitForID(mtID);
-					} catch (InterruptedException eeeeeeeeeeeeeeeeeeee) {}
-					fuck.removeImage(ret);
-					mtID++;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+                    try {
+			synchronized (pussy) {
+                            ret = ImageIO.read(file.getInputStream(file.getEntry(fLoc)));
+                            fuck.addImage(ret, mtID);
+                            try {
+				fuck.waitForID(mtID);
+                            } catch (InterruptedException eeeeeeeeeeeeeeeeeeee) {}
+                                fuck.removeImage(ret);
+				mtID++;
+                        }
+                    } catch (IOException e) {
+			e.printStackTrace();
+                    }
 		}
 		return ret;
 	}

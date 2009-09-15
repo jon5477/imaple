@@ -6,6 +6,7 @@ package imaple;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import imaple.Core.DataFileType;
 import imaple.canvas.AbstractCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -14,6 +15,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -26,6 +28,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
+import java.awt.image.ImageObserver;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -35,15 +38,17 @@ import javax.swing.JPanel;
  */
 public class MainWindow extends JFrame {
     private static final Image cursor = ImageFactory.loadImageCP("cimage/MapleCursor.png");
+    //private static Image testLoadFromIDA = ImageFactory.loadImage(DataFileType.MAP, "Effect.img/event.coconut.victory.2.png");
     private boolean renderToScreen = false;
-    private final Object yourMomPussy = new Object();
+    private final Object innerCanvas = new Object();
+    Dimension dim = getToolkit().getScreenSize();
     private AbstractCanvas canvas;
     private BufferStrategy dblBuffer;
     private JCanvas drawCanvas;
     private JLogicWorker logics;
     private int mouseX, mouseY;
-    private JKeyHandler myKeyBitch;
-    private JMouseHandler myMouseBitch;
+    private JKeyHandler keyHandler;
+    private JMouseHandler mouseHandler;
     private JRenderer renderer;
     private JWinHandler winHandler;
 
@@ -51,7 +56,7 @@ public class MainWindow extends JFrame {
         super("iMaple - The 2nd Generation of the MapleStory Custom Client");
     }
 
-    public void initiallize(boolean fullscreen) {
+    public void initialize(boolean fullscreen) {
         if (fullscreen) {
             setUndecorated(true);    //NO FUCKING DECORATIONS BITCH!!
         }
@@ -63,28 +68,26 @@ public class MainWindow extends JFrame {
         setMinimumSize(new Dimension(800, 600));
         setMaximumSize(new Dimension(800, 600));
         setResizable(false);
-
-        Cursor customCursor = getToolkit().createCustomCursor(getToolkit().createImage("twomengayorgy.jpg"),
-                                  new Point(0, 0), "twomengayorgy");
-
-        setCursor(customCursor);
+        Cursor cursorCover = getToolkit().createCustomCursor(getToolkit().createImage("cover.jpg"), new Point(0, 0), "cover");
+        setCursor(cursorCover);
         this.drawCanvas = new JCanvas();
-        this.myMouseBitch = new JMouseHandler();
-        this.myKeyBitch = new JKeyHandler();
+        this.mouseHandler = new JMouseHandler();
+        this.keyHandler = new JKeyHandler();
         this.winHandler = new JWinHandler();
 
-        JPanel theFuckingPanel = (JPanel) this.getContentPane();
+        JPanel mainPanel = (JPanel) this.getContentPane();
 
-        theFuckingPanel.setSize(800, 600);
-        theFuckingPanel.setLayout(null);
-        theFuckingPanel.add(drawCanvas);
+        mainPanel.setSize(800, 600);
+        mainPanel.setLayout(null);
+        mainPanel.add(drawCanvas);
+
         this.drawCanvas.createBufferStrategy(2);
         dblBuffer = this.drawCanvas.getBufferStrategy();
         renderToScreen = true;
-        this.drawCanvas.addMouseListener(myMouseBitch);
-        this.drawCanvas.addMouseMotionListener(myMouseBitch);
-        this.drawCanvas.addMouseWheelListener(myMouseBitch);
-        this.addKeyListener(myKeyBitch);
+        this.drawCanvas.addMouseListener(mouseHandler);
+        this.drawCanvas.addMouseMotionListener(mouseHandler);
+        this.drawCanvas.addMouseWheelListener(mouseHandler);
+        this.addKeyListener(keyHandler);
         this.addWindowListener(winHandler);
         renderer = new JRenderer();
         logics = new JLogicWorker();
@@ -94,13 +97,13 @@ public class MainWindow extends JFrame {
     }
 
     public void addCanvas(AbstractCanvas canvas) {
-        synchronized (yourMomPussy) {    //Careful, we must synchronize this, who wants your mom's pussy used at the same time by 2 different things??!
+        synchronized (innerCanvas) {
             this.canvas = canvas;
         }
     }
 
     public void removeCanvas() {
-        synchronized (yourMomPussy) {    //Careful, we must synchronize this, who wants your mom's pussy used at the same time by 2 different things??!
+        synchronized (innerCanvas) {
             this.canvas = null;
         }
     }
@@ -114,6 +117,7 @@ public class MainWindow extends JFrame {
         }
 
         g.drawImage(cursor, mouseX, mouseY, null);
+        g.drawImage(cursor, (dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2, null);
     }
 
     public void onMousePressed(MouseEvent evt) {
