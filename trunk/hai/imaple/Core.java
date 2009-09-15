@@ -41,13 +41,13 @@ public class Core {
     public static final boolean dbgMode = true;
     public static final NIOHandler networkHandler = new NIOHandler();
     public static boolean fullscreen = false;
-    public static final int VERSION;
+    public static final int VERSION = 75;
     public static BufferedReader jin;
     public static long lastPing;
     public static MainWindow window;
 
     public static enum DataFileType {
-        CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
+        CHARACTER1, CHARACTER2, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
     }
 
     public static final void printDbg(String line) {
@@ -56,7 +56,7 @@ public class Core {
         }
     }
 
-    private static void initiallizeData() throws YouAreTooFuckedException {
+    private static void initializeData() throws YouAreTooFuckedException {
         DataFileType[] types = DataFileType.values();
 
         for (int x = 0; x < types.length; x++) {
@@ -69,8 +69,8 @@ public class Core {
 
                 printDbg("[IDALoader] Loading: " + fNameAsString);
                 data.put(types[x], new ZipFile(fNameAsString));
-            } catch (IOException zafuckz) {
-                throw new YouAreTooFuckedException(zafuckz);
+            } catch (IOException ex) {
+                throw new YouAreTooFuckedException(ex);
             }
         }
     }
@@ -109,14 +109,15 @@ public class Core {
         printDbg("Connected to Login Server.");
 
         try {
-            initiallizeData();
+            initializeData();
         } catch (YouAreTooFuckedException omgwtfbbq) {
             omgwtfbbq.printStackTrace();
         }
 
         window = new MainWindow();
-        window.initiallize(fullscreen);
+        window.initialize(fullscreen);
         window.setVisible(true);
+
         jin = new BufferedReader(new InputStreamReader(System.in));
 
         if (fullscreen) {
@@ -127,6 +128,10 @@ public class Core {
 
     public NIOHandler getSession() {
         return networkHandler;
+    }
+
+    public int getVersion() {
+        return VERSION;
     }
 
     public void pingReceived() {
@@ -150,7 +155,7 @@ public class Core {
                 try {
                     if (lastPing - then < 0) {
                         if (getSession().isConnected()) {
-                            System.out.print("The pong packet has not succesfully been sent to the server.");
+                            System.out.println("The pong packet has not succesfully been sent to the server.");
                             System.exit(1);
                         }
                     }
@@ -161,77 +166,4 @@ public class Core {
             }
         }, 15000);
     }
-
-	public static String hmm(String hmmm) {
-		StringBuilder hmmmm = new StringBuilder();
-		for (int i = 0; i < hmmm.length(); i++) {
-			char hmmmmmmmmmmmmm = hmmm.charAt(i);
-			if (hmmmmmmmmmmmmm >= '0' && hmmmmmmmmmmmmm <= '9') {
-				hmmmm.append(hmmmmmmmmmmmmm);
-			}
-		}
-		return hmmmm.toString();
-	}
-
-	static {
-		VERSION = Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(
-				String.valueOf(
-				Integer.parseInt(hmm("omfgwearhlkadjsfladsgjasd7asdfasdgfasdhlfkjkasdgadfhjnblk;fadnhj;eplrtjmnkflbs/dbmsdfk gjkdslfgjadsf;g'as df" +
-				"]l adg" +
-				"aldsjfawieonmsdlkje'srg'egsDfgmlskfdnblakdgmads;lkgasdf;js" +
-				"asjdkl;afkljasd;lkgjaslgejrhsoinbedjhga" +
-				"esrher" +
-				"hbn" +
-				"e" +
-				"esgaewrgarewhaiewrghjoelkes;nbklsj;heshgser" +
-				"herh" +
-				"shrsdfhshrsrlkhjsnlhsdlfkhs;rafkgjaslkgjaslkdhgajslkhng;sdlkahgsldkhga;sdlkghasdg" +
-				"asdgasdglkasdgjakds;5asdghaslkd;gjasdkgljasdgl;asdg" +
-				"asdgasdgklasd;gjaslkdgwaoiehybtesoriagjew;;rnbiejwhgairsw;gadsg" +
-				"asdjgilasd;jgsao;hga;sdgladjsgd"))))))))))))))))))))))))))))))))))))))))))))))));
-	}
 }

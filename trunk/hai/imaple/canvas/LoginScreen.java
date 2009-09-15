@@ -18,7 +18,7 @@ public class LoginScreen extends AbstractCanvas {
 	}
 
 	@Override
-	public void doRender(Graphics2D holyFuck) {
+	public void doRender(Graphics2D g) {
 		
 	}
 }

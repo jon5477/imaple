@@ -20,7 +20,8 @@ public enum RecvOps {
     GENDER_DONE(0x04),
     TOS(0x05),
     PIN_OPERATION(0x06),
-    PIN_ASSIGNED(0x07);
+    PIN_ASSIGNED(0x07),
+    IV(0x0D);
 
     int op;
 
