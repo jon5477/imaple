@@ -47,7 +47,7 @@ public class Core {
     public static MainWindow window;
 
     public static enum DataFileType {
-        CHARACTER1, CHARACTER2, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
+        CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
     }
 
     public static final void printDbg(String line) {

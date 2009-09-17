@@ -6,7 +6,6 @@ package imaple;
 
 //~--- non-JDK imports --------------------------------------------------------
 
-import imaple.Core.DataFileType;
 import imaple.canvas.AbstractCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
@@ -15,7 +14,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
@@ -28,7 +27,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
-import java.awt.image.ImageObserver;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -110,12 +108,17 @@ public class MainWindow extends JFrame {
 
     private void renderToScreen(Graphics2D g) {
         g.setColor(Color.BLACK);
+        g.setFont(new Font("Dialog", Font.PLAIN, 10));
         g.fillRect(0, 0, 800, 600);
 
         if (canvas != null) {
             canvas.doRender(g);
         }
 
+        drawImages(g);
+    }
+
+    public void drawImages(Graphics2D g) {
         g.drawImage(cursor, mouseX, mouseY, null);
         g.drawImage(cursor, (dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2, null);
     }
