@@ -9,6 +9,7 @@ package imaple;
 import imaple.ex.CoreyIsAFaggotException;
 import imaple.ex.ICantCompileException;
 import imaple.ex.RageZoneException;
+import imaple.ex.SparksCantReadMyCodeException;
 import imaple.ex.YouAreTooFuckedException;
 
 import imaple.network.AESOFB;
@@ -43,15 +44,22 @@ public class Core {
     public static final NIOHandler networkHandler = new NIOHandler();
     public static boolean fullscreen = false;
     public static final int VERSION = 75;
-    public static BufferedReader jin;
-    public static long lastPing;
-    public static MainWindow window;
-    public static AESOFB sendIV;
-    public static AESOFB recvIV;
+    public static BufferedReader jin = null;
+    public static long lastPing = 0x0000000000000000L;
+    public static MainWindow window = null;
+    public static AESOFB sendIV = null;
+    public static AESOFB recvIV = null;
 
     public static enum DataFileType {
-        CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
+        CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND;
     }
+
+	public static void closeData()
+			throws IOException {
+		for (ZipFile zf : data.values()) {
+			zf.close();
+		}
+	}
 
     public static final void printDbg(String line) {
         if (dbgMode) {
@@ -116,6 +124,9 @@ public class Core {
                 fullscreen = FullScreenDevice.isDisplayChangeAvailable() && FullScreenDevice.isExclusiveModeAvailable();
             }
         }
+		//Start the timer manager
+		TimerManager.getInstance().start();
+		Runtime.getRuntime().addShutdownHook(new Hooker());
 
         try {
             networkHandler.connectTo(new InetSocketAddress(IP, PORT));
@@ -179,7 +190,7 @@ public class Core {
                         }
                     }
                 } catch (NullPointerException e) {
-
+					throw new SparksCantReadMyCodeException(e);
                     // Client has already been closed.
                 }
             }

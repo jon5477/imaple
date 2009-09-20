@@ -13,6 +13,7 @@ import imaple.handlers.PingHandler;
 import imaple.network.input.ByteArrayByteStream;
 import imaple.network.input.GenericSeekableLittleEndianAccessor;
 import imaple.network.input.SeekableLittleEndianAccessor;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import org.apache.mina.common.ConnectFuture;
@@ -56,6 +57,12 @@ public class NIOHandler extends IoHandlerAdapter {
 	@Override
 	public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
 		cause.printStackTrace();
+	}
+
+	public void close() {
+		if (yourMomsSession != null) {
+			yourMomsSession.close();
+		}
 	}
 
 	@Override

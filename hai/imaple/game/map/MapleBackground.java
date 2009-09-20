@@ -19,6 +19,7 @@ import java.util.zip.ZipFile;
  */
 
 public class MapleBackground {
+	//Seth: what the fuck?!
     public final HashMap<Integer, Image> frames = new LinkedHashMap<Integer, Image>();
 
     public int numOfFrames = 0;

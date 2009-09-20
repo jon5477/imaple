@@ -5,21 +5,20 @@
 
 package imaple.canvas;
 
+import imaple.ui.UiButton;
+import imaple.ui.UiTextbox;
 import java.awt.Graphics2D;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 /**
  *
  * @author David
  */
 public class LoginScreen extends AbstractCanvas {
-    static JTextField userField = new JTextField("");
-    static JPasswordField passField = new JPasswordField("");
-    JButton login = new JButton("Login");
-    JButton register = new JButton("Register");
-    JButton website = new JButton("Website");
+	//Seth: I challenge you: Get this part to work. (Hint: use the included event handlers and renderers)
+	private UiTextbox usernameBox,
+			passwordBox
+	;
+	private UiButton loginButton;
 
     @Override
     public void doLogics() {
