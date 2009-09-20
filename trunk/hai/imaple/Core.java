@@ -11,6 +11,7 @@ import imaple.ex.ICantCompileException;
 import imaple.ex.RageZoneException;
 import imaple.ex.YouAreTooFuckedException;
 
+import imaple.network.AESOFB;
 import imaple.network.NIOHandler;
 import imaple.network.PacketCreator;
 
@@ -35,7 +36,7 @@ import java.util.zip.ZipFile;
  * @author David
  */
 public class Core {
-    public static String IP = "127.0.0.1";
+    public static String IP = "121.121.162.79";
     public static int PORT = 8484;
     public static final HashMap<DataFileType, ZipFile> data = new LinkedHashMap<DataFileType, ZipFile>();
     public static final boolean dbgMode = true;
@@ -45,6 +46,8 @@ public class Core {
     public static BufferedReader jin;
     public static long lastPing;
     public static MainWindow window;
+    public static AESOFB sendIV;
+    public static AESOFB recvIV;
 
     public static enum DataFileType {
         CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND
@@ -73,6 +76,22 @@ public class Core {
                 throw new YouAreTooFuckedException(ex);
             }
         }
+    }
+    
+    public static AESOFB getSendIV() {
+        return sendIV;
+    }
+    
+    public static AESOFB setSendIV(AESOFB iv) {
+        return sendIV = iv;
+    }
+
+    public static AESOFB getRecvIV() {
+        return recvIV;
+    }
+
+    public static AESOFB setRecvIV(AESOFB iv) {
+        return recvIV = iv;
     }
 
     public static final int itoa(String in) {
