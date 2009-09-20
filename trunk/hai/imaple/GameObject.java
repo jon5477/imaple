@@ -5,6 +5,11 @@
 
 package imaple;
 
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+
 /**
  *
  * @author David
@@ -14,6 +19,7 @@ public abstract class GameObject {
 			x,
 			y
 	;
+	protected Rectangle area;
 
 	public int getX() {
 		return x;
@@ -36,4 +42,30 @@ public abstract class GameObject {
 	public void notifyRelativeObjects() {
 
 	}
+
+	public void onMousePressed(MouseEvent evt) {
+
+	}
+
+	public void onMouseReleased(MouseEvent evt) {
+
+	}
+
+	public void onMouseMoved(MouseEvent evt) {
+
+	}
+
+	public void onMouseDragged(MouseEvent evt) {
+
+	}
+
+	public void onKeyPressed(KeyEvent evt) {
+
+	}
+
+	public void onKeyReleased(KeyEvent evt) {
+		
+	}
+
+	public abstract void render(Graphics2D g);
 }
