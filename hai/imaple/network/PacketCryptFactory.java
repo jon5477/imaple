@@ -5,6 +5,7 @@
 
 package imaple.network;
 
+import imaple.Core;
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
@@ -39,6 +40,7 @@ public class PacketCryptFactory implements ProtocolCodecFactory {
 			buffer.putInt(bytes.length);
 			buffer.put(bytes);
                         PacketEncryption.encryptData(bytes);
+                        Core.getSendIV().crypt(bytes);
 			arg2.write(buffer);
 		}
 
@@ -54,6 +56,7 @@ public class PacketCryptFactory implements ProtocolCodecFactory {
 				int byteLen = arg1.getInt();
 				byte[] shit = new byte[byteLen];
 				arg1.get(shit);
+                                Core.getRecvIV().crypt(shit);
                                 PacketEncryption.decryptData(shit);
 				arg2.write(shit);
 				return true;
