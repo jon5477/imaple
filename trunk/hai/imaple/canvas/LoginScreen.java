@@ -5,20 +5,55 @@
 
 package imaple.canvas;
 
+import imaple.Core;
+import imaple.GameObject;
+import imaple.ex.CoreyIsAFaggotException;
+import imaple.ex.ICantCompileException;
+import imaple.network.PacketCreator;
+import imaple.ui.UiActionEvent;
+import imaple.ui.UiActionListener;
 import imaple.ui.UiButton;
 import imaple.ui.UiTextbox;
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author David
  */
 public class LoginScreen extends AbstractCanvas {
-	//Seth: I challenge you: Get this part to work. (Hint: use the included event handlers and renderers)
-	private UiTextbox usernameBox,
-			passwordBox
-	;
-	private UiButton loginButton;
+    //Seth: I challenge you: Get this part to work. (Hint: use the included event handlers and renderers)
+    // (By Seth) Sure, I like a good challenge ^^.
+    private static UiTextbox usernameBox, passwordBox; // argh blasphemy..
+    private UiButton loginButton; // argh blasphemy..
+    private Core c; // meh..
+    
+    public LoginScreen() {
+        loginButton.addActionListener(new UiActionListener() {
+            @Override public void actionPerformed(UiActionEvent evt) {
+                String username = LoginScreen.getUsername();
+                String password = LoginScreen.getPassword();
+                if (username == null || password == null)
+                    return; // Gotta start working on client error messages =/
+                try {
+                    c.getSession().sendPacket(PacketCreator.sendLogin(username, password));
+                } catch (CoreyIsAFaggotException ex) {
+                    Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ICantCompileException ex) {
+                    Logger.getLogger(GameObject.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
+    public static String getUsername() {
+        return usernameBox.getText();
+    }
+
+    public static String getPassword() {
+        return passwordBox.getText();
+    }
 
     @Override
     public void doLogics() {
@@ -27,6 +62,6 @@ public class LoginScreen extends AbstractCanvas {
 
     @Override
     public void doRender(Graphics2D g) {
-		
+
     }
 }

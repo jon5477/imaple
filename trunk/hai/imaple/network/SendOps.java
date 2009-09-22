@@ -12,7 +12,8 @@ package imaple.network;
 
 public enum SendOps {
     /* General */
-    PONG(0x19);
+    PONG(0x19),
+    LOGIN_PASSWORD(0x01);
 
     int op;
 
