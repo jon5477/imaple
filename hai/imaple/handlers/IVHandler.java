@@ -29,5 +29,10 @@ public class IVHandler implements JPacketHandler { // Handles the HELLO packet s
 
         Core.setSendIV(new AESOFB(key, sendIV, (short) (0xFFFF - encVersion)));
 	Core.setRecvIV(new AESOFB(key, recvIV, encVersion));
+        System.err.println("iMaple Server Version: " + Short.toString(encVersion));
+        if (Short.toString(encVersion) != Integer.toString(Core.getVersion())) { // Not the best way...
+            System.err.println("Both versions from server and client are not the same. Now exiting..");
+            // Gotta add an error message JFrame or something lol..
+        }
     }
 }

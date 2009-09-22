@@ -11,12 +11,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+
 /**
  *
  * @author David
  */
 public abstract class AbstractCanvas {
-	private final ObjectList objList = new ObjectList();
+    private final ObjectList objList = new ObjectList();
 
     public int getRenderDelay() {
 		return 10;
@@ -26,17 +27,17 @@ public abstract class AbstractCanvas {
 		return 30;
     }
 
-	public void defaultMousePressed(MouseEvent evt) {
-		for (GameObject o : objList.getObjList()) {
-			o.onMousePressed(evt);
-		}
+    public void defaultMousePressed(MouseEvent evt) {
+	for (GameObject o : objList.getObjList()) {
+            o.onMousePressed(evt);
 	}
+    }
 
-	public void defaultMouseReleased(MouseEvent evt) {
-		for (GameObject o : objList.getObjList()) {
-			o.onMouseReleased(evt);
-		}
+    public void defaultMouseReleased(MouseEvent evt) {
+	for (GameObject o : objList.getObjList()) {
+            o.onMouseReleased(evt);
 	}
+    }
 
 	public void defaultMouseMoved(MouseEvent evt) {
 		for (GameObject o : objList.getObjList()) {

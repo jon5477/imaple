@@ -20,6 +20,7 @@ public abstract class GameObject {
 			y
 	;
 	protected Rectangle area;
+        public Core c;
 
 	public int getX() {
 		return x;
@@ -45,7 +46,7 @@ public abstract class GameObject {
 
 	public void onMousePressed(MouseEvent evt) {
 
-	}
+        }
 
 	public void onMouseReleased(MouseEvent evt) {
 

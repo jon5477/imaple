@@ -35,7 +35,7 @@ import javax.swing.JPanel;
  * @author David
  */
 public class MainWindow extends JFrame {
-    private static final Image cursor = ImageFactory.loadImageCP("cimage/MapleCursor.png");
+    public static final Image cursor = ImageFactory.loadImageCP("cimage/MapleCursor.png");
     //private static Image testLoadFromIDA = ImageFactory.loadImage(DataFileType.MAP, "Effect.img/event.coconut.victory.2.png");
     private boolean renderToScreen = false;
     private final Object innerCanvas = new Object();

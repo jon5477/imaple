@@ -20,7 +20,11 @@ import imaple.util.TimerManager;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import java.awt.AWTException;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -37,7 +41,7 @@ import java.util.zip.ZipFile;
  * @author David
  */
 public class Core {
-    public static String IP = "121.121.162.79";
+    public static String IP = "mmso.no-ip.org";
     public static int PORT = 8484;
     public static final HashMap<DataFileType, ZipFile> data = new LinkedHashMap<DataFileType, ZipFile>();
     public static final boolean dbgMode = true;
@@ -49,6 +53,7 @@ public class Core {
     public static MainWindow window = null;
     public static AESOFB sendIV = null;
     public static AESOFB recvIV = null;
+    public static TrayIcon trayIcon;
 
     public static enum DataFileType {
         CHARACTER, EFFECT, ETC, ITEM, MAP, STRING, UI, MOB, TAMINGMOB, SKILL, QUEST, REACTOR, NPC, MORPH, SOUND;
@@ -77,11 +82,12 @@ public class Core {
 
             try {
                 String fNameAsString = fName.toString() + ".IDA";
-
                 printDbg("[IDALoader] Loading: " + fNameAsString);
                 data.put(types[x], new ZipFile(fNameAsString));
+            } catch (FileNotFoundException failure) {
+                failure.printStackTrace();
             } catch (IOException ex) {
-                throw new YouAreTooFuckedException(ex);
+                ex.printStackTrace();
             }
         }
     }
@@ -106,6 +112,7 @@ public class Core {
         return Integer.parseInt(in);
     }
 
+    @SuppressWarnings("static-access")
     public static void main(String[] main) throws YouAreTooFuckedException, RageZoneException {
         for (int i = 0; i < main.length; i++) {
             if (main[i].equalsIgnoreCase("-ip") && (i < main.length - 1)) {
@@ -124,10 +131,9 @@ public class Core {
                 fullscreen = FullScreenDevice.isDisplayChangeAvailable() && FullScreenDevice.isExclusiveModeAvailable();
             }
         }
-		//Start the timer manager
-		TimerManager.getInstance().start();
-		Runtime.getRuntime().addShutdownHook(new Hooker());
-
+	//Start the timer manager
+	TimerManager.getInstance().start();
+	Runtime.getRuntime().addShutdownHook(new Hooker());
         try {
             networkHandler.connectTo(new InetSocketAddress(IP, PORT));
         } catch (YouAreTooFuckedException yatfe) {
@@ -154,13 +160,26 @@ public class Core {
             FullScreenDevice.setFullScreen(window);
             FullScreenDevice.changeDisplayMode(FullScreenDevice.msDisplayMode);
         }
+        if (SystemTray.isSupported()) {
+            SystemTray tray = SystemTray.getSystemTray();
+            trayIcon = new TrayIcon(window.cursor, "iMaple");
+            trayIcon.setImageAutoSize(true);
+            try {
+                tray.add(trayIcon);
+            } catch (AWTException e) {
+                System.err.println("Unknown?");
+            }
+            trayIcon.displayMessage("[iMaple v." + VERSION +"]", "iMaple has successfully been initialized.", TrayIcon.MessageType.INFO);
+        } else {
+            System.err.println("Your OS is not compatible with iMaple.");
+        }
     }
 
     public NIOHandler getSession() {
         return networkHandler;
     }
 
-    public int getVersion() {
+    public static int getVersion() {
         return VERSION;
     }
 
@@ -186,7 +205,7 @@ public class Core {
                     if (lastPing - then < 0) {
                         if (getSession().isConnected()) {
                             System.out.println("The pong packet has not succesfully been sent to the server.");
-                            System.exit(1);
+                            System.exit(0);
                         }
                     }
                 } catch (NullPointerException e) {
