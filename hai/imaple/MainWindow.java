@@ -10,6 +10,8 @@ import imaple.canvas.AbstractCanvas;
 
 //~--- JDK imports ------------------------------------------------------------
 
+import imaple.canvas.LoginScreen;
+import imaple.util.TimerManager;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -106,7 +108,7 @@ public class MainWindow extends JFrame {
         }
     }
 
-    private void renderToScreen(Graphics2D g) {
+    private void renderToScreen(final Graphics2D g) {
         g.setColor(Color.BLACK);
         g.setFont(new Font("Dialog", Font.PLAIN, 10));
         g.fillRect(0, 0, 800, 600);
@@ -114,13 +116,20 @@ public class MainWindow extends JFrame {
         if (canvas != null) {
             canvas.doRender(g);
         }
-
-        drawImages(g);
+        g.setColor(Color.BLACK);
+        g.drawString("Loading iMaple's Login Screen...", 482, 34);
+        TimerManager.getInstance().register(new Runnable() {
+            public void run() {
+                LoginScreen login = new LoginScreen();
+                login.doRender(g);
+            }
+        }, 1);
+        drawCursor(g);
     }
 
-    public void drawImages(Graphics2D g) {
+    public void drawCursor(Graphics2D g) {
         g.drawImage(cursor, mouseX, mouseY, null);
-        g.drawImage(cursor, (dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2, null);
+        g.drawImage(cursor, (dim.width - this.getSize().width) / 2, (dim.height - this.getSize().height) / 2, null); // I just did this for a test..
     }
 
     public void onMousePressed(MouseEvent evt) {

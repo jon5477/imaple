@@ -9,11 +9,11 @@ import imaple.ex.CoreyIsAFaggotException;
 import imaple.ex.ICantCompileException;
 import imaple.ex.YouAreTooFuckedException;
 import imaple.handlers.IVHandler;
+import imaple.handlers.LoginStatusHandler;
 import imaple.handlers.PingHandler;
 import imaple.network.input.ByteArrayByteStream;
 import imaple.network.input.GenericSeekableLittleEndianAccessor;
 import imaple.network.input.SeekableLittleEndianAccessor;
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import org.apache.mina.common.ConnectFuture;
@@ -34,6 +34,7 @@ public class NIOHandler extends IoHandlerAdapter {
 
 	public NIOHandler() {
 		handlers.put(RecvOps.PING, new PingHandler());
+                handlers.put(RecvOps.LOGIN_STATUS, new LoginStatusHandler());
                 handlers.put(RecvOps.IV, new IVHandler());
 	}
 

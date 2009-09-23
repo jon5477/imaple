@@ -71,8 +71,7 @@ public class AESOFB {
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
 		} catch (InvalidKeyException e) {
-			log
-				.error("Error initalizing the encryption cipher.  Make sure you're using the Unlimited Strength cryptography jar files.");
+			log.error("Error initalizing the encryption cipher.  Make sure you're using the Unlimited Strength cryptography jar files.");
 		}
 
 		this.setIv(iv);
