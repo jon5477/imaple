@@ -41,13 +41,13 @@ import java.util.zip.ZipFile;
  * @author David
  */
 public class Core {
-    public static String IP = "mmso.no-ip.org";
-    public static int PORT = 8484;
+    public static String IP = "5.223.253.178";
+    public static int PORT = 9898;
     public static final HashMap<DataFileType, ZipFile> data = new LinkedHashMap<DataFileType, ZipFile>();
     public static final boolean dbgMode = true;
     public static final NIOHandler networkHandler = new NIOHandler();
     public static boolean fullscreen = false;
-    public static final int VERSION = 75;
+    public static int VERSION = 75; // Originally set to GMS v75
     public static BufferedReader jin = null;
     public static long lastPing = 0x0000000000000000L;
     public static MainWindow window = null;
@@ -162,7 +162,7 @@ public class Core {
         }
         if (SystemTray.isSupported()) {
             SystemTray tray = SystemTray.getSystemTray();
-            trayIcon = new TrayIcon(window.cursor, "iMaple");
+            trayIcon = new TrayIcon(MainWindow.cursor, "iMaple");
             trayIcon.setImageAutoSize(true);
             try {
                 tray.add(trayIcon);
@@ -181,6 +181,11 @@ public class Core {
 
     public static int getVersion() {
         return VERSION;
+    }
+
+    @SuppressWarnings("static-access")
+    public static void setVersion(int version) {
+        VERSION = version;
     }
 
     public void pingReceived() {

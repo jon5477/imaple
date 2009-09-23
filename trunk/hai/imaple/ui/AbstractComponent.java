@@ -19,7 +19,7 @@ public abstract class AbstractComponent extends GameObject {
     protected UiActionListener listener = null;
     protected boolean showTooltip = false;
     protected int asX = -1, asY = -1;
-    protected UIManager manager;
+    protected static UIManager manager;
     protected long mouseHasNotMovedFor;
     protected String tooltip;
     protected int width, height;
@@ -89,11 +89,11 @@ public abstract class AbstractComponent extends GameObject {
         return listener;
     }
 
-    public UIManager getUiManager() {
+    public static UIManager getUiManager() {
         return manager;
     }
 
-    public void setUiManager(UIManager man) {
+    public static void setUiManager(UIManager man) {
         manager = man;
     }
 

@@ -14,7 +14,9 @@ import imaple.ui.UiActionEvent;
 import imaple.ui.UiActionListener;
 import imaple.ui.UiButton;
 import imaple.ui.UiTextbox;
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,12 +30,16 @@ public class LoginScreen extends AbstractCanvas {
     private static UiTextbox usernameBox, passwordBox; // argh blasphemy..
     private UiButton loginButton; // argh blasphemy..
     private Core c; // meh..
-    
+
     public LoginScreen() {
+        Image loginButtonImages[] = new Image[4];
+        loginButton = new UiButton(loginButtonImages, 84, 40, UiButton.getUiManager());
+        loginButton.setWidth(638);
+        loginButton.setHeight(258);
         loginButton.addActionListener(new UiActionListener() {
             @Override public void actionPerformed(UiActionEvent evt) {
-                String username = LoginScreen.getUsername();
-                String password = LoginScreen.getPassword();
+                String username = getUsername();
+                String password = getPassword();
                 if (username == null || password == null)
                     return; // Gotta start working on client error messages =/
                 try {
@@ -62,6 +68,7 @@ public class LoginScreen extends AbstractCanvas {
 
     @Override
     public void doRender(Graphics2D g) {
-
+        g.setColor(Color.WHITE);
+        loginButton.render(g);
     }
 }
